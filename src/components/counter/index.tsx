@@ -1,31 +1,17 @@
-import { CounterContext } from "@/context/couterprovider";
-import { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const Counter = () => {
-    const { state, dispatch } = useContext(CounterContext);
-    console.log("state", state); // { count: 0}
+    const dispatch = useDispatch();
+    const state = useSelector((state: any) => state.counter.count);
     return (
-        <div>
-            Counter: {state.count}
-            <button
-                className="border border-gray-500 p-2"
-                onClick={() => dispatch({ type: "INCREMENT" })}
-            >
-                Increment
-            </button>
-            <button
-                className="border border-gray-500 p-2 ml-2"
-                onClick={() => dispatch({ type: "DECREMENT" })}
-            >
-                Decrement
-            </button>
-            <button
-                className="border border-gray-500 p-2 ml-2"
-                onClick={() => dispatch({ type: "INCREASE", payload: 10 })}
-            >
-                Increase
+        <div >
+            Value: {state}
+            <button className="flex flex-none"  onClick={() => dispatch({ type: "counter/increment" })}>cộng</button>
+            <button className="flex flex-none" onClick={() => dispatch({ type: "counter/decrement" })}>trừ </button>
+            <button className="flex flex-none" onClick={() => dispatch({ type: "counter/increase", payload: 10 })}>
+                Cộng thêm 10
             </button>
         </div>
     );
 };
-export default Counter
+export default Counter;
